@@ -1,12 +1,15 @@
 {
-  "name": "vue-drive-a",
+  "name": "file-drive-app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "api": "node server/index.js",
+    "start": "concurrently \"npm run api\" \"npm run dev\""
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "core-js": "^3.6.5",
     "vue": "^3.0.0"
   },

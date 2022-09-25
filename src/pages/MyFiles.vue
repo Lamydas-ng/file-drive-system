@@ -9,7 +9,7 @@
       </button>
     </div>
     <div class="row">
-      <div class="col-md-3" v-for="item in 6">
+      <div class="col-md-3" v-for="(item,index) in 6" :key="`item-${index}`">
         <div class="card mb-4">
           <div class="card-body text-center py-5">
             <icon-type-common height="4em" width="4em" />
@@ -37,7 +37,7 @@
       </div>
       <div class="col-md-3">
         <div class="card mb-4">
-          <img class="file-thumb" src="https://picsum.photos/id/1015/400/160" />
+          <img class="file-thumb" src="img/file-2.jpg" />
           <div class="card-footer">
             <div class="d-flex align-items-center">
               <icon-type-image />
@@ -51,9 +51,21 @@
 </template>
 
 <script>
+import axios from 'axios';
 import ActionBar from "../components/ActionBar.vue";
 
 export default {
   components: { ActionBar },
+  mounted() {
+    this.fetchAPI();
+  },
+  methods: {
+    fetchAPI() {
+      axios.get("http://localhost:3030/files")
+        .then(response => console.log(response))
+        .catch(error => console.error(error));
+
+    }
+  }
 };
 </script>

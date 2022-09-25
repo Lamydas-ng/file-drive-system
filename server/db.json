@@ -3,13 +3,13 @@
         {
             "id": 1,
             "name": "File 1.jpg",
-            "url": "https://picsum.photos/id/1015/350/200",
+            "url": "img/file-1.jpg",
             "mimeType": "image/jpeg"
         },
         {
             "id": 2,
             "name": "File 2.png",
-            "url": "https://picsum.photos/id/1039/350/200",
+            "url": "img/file-2.jpg",
             "mimeType": "image/png"
         },
         {
