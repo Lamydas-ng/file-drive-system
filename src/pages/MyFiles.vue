@@ -51,8 +51,10 @@
 </template>
 
 <script>
-import axios from 'axios';
+
 import ActionBar from "../components/ActionBar.vue";
+import fileApi from "../api/files";
+
 
 export default {
   components: { ActionBar },
@@ -61,8 +63,8 @@ export default {
   },
   methods: {
     fetchAPI() {
-      axios.get("http://localhost:3030/files")
-        .then(response => console.log(response))
+      fileApi.index()
+        .then( response=> console.log(response))
         .catch(error => console.error(error));
 
     }
