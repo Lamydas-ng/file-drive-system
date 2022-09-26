@@ -9,39 +9,18 @@
       </button>
     </div>
     <div class="row">
-      <div class="col-md-3" v-for="(item,index) in 6" :key="`item-${index}`">
+
+
+      <div class="col-md-3" v-for="file in files" :key="`file-${file.id}`">
         <div class="card mb-4">
-          <div class="card-body text-center py-5">
-            <icon-type-common height="4em" width="4em" />
-          </div>
+          <img class="file-thumb" :src="file.url" v-if="file.url" />
+            <div class="card-body text-center py-5" v-else>
+              <icon-type-common height="4em" width="4em"  />
+            </div>
           <div class="card-footer">
             <div class="d-flex align-items-center">
               <icon-type-common />
-              <span class="file-name">File {{ item }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card mb-4 selected-file">
-          <div class="card-body text-center py-5">
-            <icon-type-pdf height="4em" width="4em" />
-          </div>
-          <div class="card-footer">
-            <div class="d-flex align-items-center">
-              <icon-type-pdf />
-              <span class="file-name">File 7.pdf</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card mb-4">
-          <img class="file-thumb" src="img/file-2.jpg" />
-          <div class="card-footer">
-            <div class="d-flex align-items-center">
-              <icon-type-image />
-              <span class="file-name">File 8.png</span>
+              <span class="file-name">{{ file.name}}</span>
             </div>
           </div>
         </div>
@@ -59,15 +38,20 @@ import fileApi from "../api/files";
 export default {
   components: { ActionBar },
   mounted() {
-    this.fetchAPI();
+    this.fetchFiles();
   },
+  data: () => ({
+    files: [],
+  }),
   methods: {
-    fetchAPI() {
-      fileApi.index()
-        .then( response=> console.log(response))
-        .catch(error => console.error(error));
-
+    async fetchFiles() {
+      try {
+        const { data } = await fileApi.index();
+        this.files = data;
+      } catch (error) {
+        console.error(error);
+      }
     }
-  }
+  },
 };
 </script>
