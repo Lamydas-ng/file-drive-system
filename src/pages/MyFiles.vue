@@ -17,26 +17,31 @@
 import ActionBar from "../components/ActionBar.vue";
 import fileApi from "../api/files";
 import FilesList from "../components/files/FilesList.vue";
+import {ref, onMounted } from 'vue';
 
 
-
-export default {
-  components: { ActionBar, FilesList },
-  mounted() {
-    this.fetchFiles();
-  },
-  data: () => ({
-    files: [],
-  }),
-  methods: {
-    async fetchFiles() {
+const fetchFiles = async () => {
       try {
         const { data } = await fileApi.index();
-        this.files = data;
+        return data;
       } catch (error) {
         console.error(error);
       }
-    }
-  },
+    };
+
+export default {
+  components: { ActionBar, FilesList },
+
+  setup(){
+    const files =  ref([]);
+    onMounted( async() => files.value = await fetchFiles() );
+
+
+
+    return { files };
+  }
+
+  
+  
 };
 </script>

@@ -26,6 +26,7 @@
       },
     },
     setup(props) {
+      
       const iconFileType = computed(() => {
         const iconTypes = {
           "video/mp4": "icon-type-video",
@@ -37,6 +38,7 @@
           "application/vnd.ms-excel": "icon-type-excel",
           "application/pdf": "icon-type-pdf",
         };
+
         return iconTypes[props.file.mimeType]
           ? iconTypes[props.file.mimeType]
           : "icon-type-common";
