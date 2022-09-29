@@ -9,15 +9,15 @@
     <teleport to="#search-form">
       <SearchForm v-model="q" />
     </teleport>
-    
+
     <files-list :files="files"></files-list>
   </div>
 </template>
 
 <script>
 import SortToggler from '../components/SortToggler.vue';
-import SearchForm from '../components/SearchForm.vue';
 import ActionBar from "../components/ActionBar.vue";
+import SearchForm from '../components/SearchForm.vue';
 import fileApi from "../api/files";
 import FilesList from "../components/files/FilesList.vue";
 import {ref,  reactive, watchEffect, toRef } from 'vue';
