@@ -6,16 +6,21 @@
       <h6 class="text-muted mb-0">Files</h6>
       <sort-toggler @sort-change="handleSortChange($event)"/>
     </div>
+    <teleport to="#search-form">
+      <SearchForm v-model="q" />
+    </teleport>
+    
     <files-list :files="files"></files-list>
   </div>
 </template>
 
 <script>
 import SortToggler from '../components/SortToggler.vue';
+import SearchForm from '../components/SearchForm.vue';
 import ActionBar from "../components/ActionBar.vue";
 import fileApi from "../api/files";
 import FilesList from "../components/files/FilesList.vue";
-import {ref, onMounted, reactive, watchEffect } from 'vue';
+import {ref,  reactive, watchEffect, toRef } from 'vue';
 
 
 const fetchFiles = async (query) => {
@@ -31,10 +36,12 @@ export default {
   components: { ActionBar, FilesList, SortToggler },
 
   setup(){
+
     const files =  ref([]);
     const query = reactive({
       _sort : 'name',
-      _order : 'asc'
+      _order : 'asc',
+      q:''
 
     });
 
@@ -46,8 +53,7 @@ export default {
     watchEffect( async() => files.value = await fetchFiles(query) );
 
 
-
-    return { files, handleSortChange };
+    return { files, handleSortChange, q: toRef(query, "q") };
   }
 
   
