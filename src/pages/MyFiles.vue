@@ -1,16 +1,17 @@
 <template>
   <div class="container py-3">
-    <ActionBar />
+    <ActionBar :selected-count="selectedItems.length" />
 
     <div class="d-flex justify-content-between align-items-center py-2">
-      <h6 class="text-muted mb-0">Files</h6>
+      <h6 class="text-muted mb-0">Files {{ selectedItems }}</h6>
       <sort-toggler @sort-change="handleSortChange($event)"/>
     </div>
     <teleport to="#search-form">
       <SearchForm v-model="q" />
     </teleport>
 
-    <files-list :files="files"></files-list>
+    <files-list :files="files" @select-change="handleSelectChange($event)"></files-list>
+
   </div>
 </template>
 
@@ -33,11 +34,12 @@ const fetchFiles = async (query) => {
     };
 
 export default {
-  components: { ActionBar, FilesList, SortToggler },
+  components: { ActionBar, FilesList, SortToggler,SearchForm },
 
   setup(){
 
-    const files =  ref([]);
+    const files = ref([]);
+    const selectedItems = ref([]);
     const query = reactive({
       _sort : 'name',
       _order : 'asc',
@@ -50,13 +52,17 @@ export default {
           query._order = payload.order;
     };
 
+    const handleSelectChange = (items) => {
+      selectedItems.value = Array.from(items);
+    }
+
     watchEffect( async() => files.value = await fetchFiles(query) );
 
 
-    return { files, handleSortChange, q: toRef(query, "q") };
+    return { files, handleSortChange, q: toRef(query, "q") , handleSelectChange, selectedItems };
   }
 
-  
-  
+
+
 };
 </script>
