@@ -7,6 +7,12 @@
       "mimeType": "image/jpeg"
     },
     {
+      "id": 2,
+      "name": "File 2.jpg",
+      "url": "img/file-2.jpg",
+      "mimeType": "image/jpeg"
+    },
+    {
       "id": 6,
       "name": "File 6.doc",
       "mimeType": "application/msword"

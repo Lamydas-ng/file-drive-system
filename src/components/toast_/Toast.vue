@@ -1,6 +1,6 @@
 <template>
   <transition :name="transitionName">
-    <div class="vue-toast" :class="toastClasses" v-show="show">
+    <div class="toast" :class="toastClasses" v-show="show">
       <div class="toast-icon">
         <component :is="toastIcon"></component>
       </div>
@@ -12,12 +12,10 @@
     </div>
   </transition>
 </template>
-
 <script>
 import IconError from "./IconError.vue";
 import IconWarning from "./IconWarning.vue";
 import IconSuccess from "./IconSuccess.vue";
-
 export default {
   emits: ["hide"],
   data: () => ({
@@ -28,7 +26,6 @@ export default {
       if (this.timeout) {
         clearTimeout(this.timeout);
       }
-
       this.timeout = setTimeout(() => {
         this.$emit("hide");
       }, 3000);
@@ -60,6 +57,7 @@ export default {
     },
   },
   computed: {
+
     transitionName() {
       const transitions = {
         "top-left": "ltr",
@@ -69,6 +67,7 @@ export default {
       };
       return transitions[this.getPosition];
     },
+
     toastType() {
       return `toast-${this.getType}`;
     },
@@ -105,18 +104,16 @@ export default {
 </script>
 
 <style scoped>
-.vue-toast {
-  min-width: 300px;
+.toast {
+  width: 300px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
   box-shadow: 1px 5px 10px -5px rgba(0, 0, 0, 0.2);
   position: relative;
-  z-index: 99999;
 }
-
-.vue-toast::before {
+.toast::before {
   content: "";
   width: 4px;
   height: 100%;
@@ -124,70 +121,54 @@ export default {
   top: 0;
   left: 0;
 }
-
 .toast-icon {
-  box-sizing: content-box;
   width: 16px;
   height: 16px;
   border-radius: 50%;
   padding: 7px;
 }
-
 .toast-success .toast-icon svg {
   fill: #ecfdf5;
-  vertical-align: baseline;
 }
-
 .toast-success {
   background: #ecfdf5;
 }
-
 .toast-success::before,
 .toast-success .toast-icon {
   background: #34d399;
 }
-
 .toast-warning .toast-icon svg {
   fill: #fffbeb;
 }
-
 .toast-warning {
   background: #fffbeb;
 }
-
 .toast-warning::before,
 .toast-warning .toast-icon {
   background: #f59e0b;
 }
-
 .toast-error .toast-icon svg {
   fill: #f3f2f2;
 }
-
 .toast-error {
   background: #fef2f2;
 }
-
 .toast-error::before,
 .toast-error .toast-icon {
   background: #ef4444;
 }
-
 .toast-content {
   flex-grow: 1;
   margin: 0 1rem;
 }
-
 .toast-title {
   font-weight: 700;
   margin-bottom: 0.5rem;
 }
-
 .toast-message {
   font-size: 14px;
   color: #6b7280;
 }
-
 .toast-button {
   width: 1.5em;
   height: 1.5em;
@@ -199,11 +180,9 @@ export default {
   cursor: pointer;
   font-size: 1.5em;
 }
-
 .toast-button:hover {
   opacity: 1;
 }
-
 .bottom-left {
   position: fixed;
   left: 20px;
@@ -224,6 +203,7 @@ export default {
   right: 20px;
   top: 20px;
 }
+
 .rtl-enter-active,
 .rtl-leave-active,
 .ltr-enter-active,
