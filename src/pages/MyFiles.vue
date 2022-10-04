@@ -25,7 +25,7 @@ import SearchForm from '../components/SearchForm.vue';
 import filesApi from "../api/files";
 import FilesList from "../components/files/FilesList.vue";
 import {ref,  reactive, watchEffect, toRef } from 'vue';
-import { remove } from '@vue/shared';
+
 import Toast from '../components/toast/Toast.vue';
 
 
