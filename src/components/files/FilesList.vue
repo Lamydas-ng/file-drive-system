@@ -1,6 +1,7 @@
 <template>
         <div class="row" @click="clearSelected">
            <file-item
+           
            v-for="file in files"
            :file="file"
             :key="`file-${file.id}`"
@@ -16,6 +17,8 @@
 import FileItem from './FileItem.vue';
     import {  reactive } from 'vue';
 export default {
+
+
     components: { FileItem },
     props:{
        files: {

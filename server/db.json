@@ -8,7 +8,7 @@
     },
     {
       "id": 3,
-      "name": "File 3.jpg",
+      "name": "File3.jpg",
       "url": "img/file-3.jpg",
       "mimeType": "image/jpeg"
     },
@@ -19,7 +19,7 @@
     },
     {
       "id": 5,
-      "name": "File 5.xls",
+      "name": "File5.xls",
       "mimeType": "application/vnd.ms-excel"
     }
   ]

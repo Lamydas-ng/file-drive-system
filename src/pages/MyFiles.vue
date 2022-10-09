@@ -3,14 +3,16 @@
     <ActionBar :selected-count="selectedItems.length" @remove="handleRemove" @rename="showModal=true" />
 
     <div class="d-flex justify-content-between align-items-center py-2">
-      <h6 class="text-muted mb-0">Files {{ selectedItems }}</h6>
+      <h6 class="text-muted mb-0">Files</h6>
       <sort-toggler @sort-change="handleSortChange($event)"/>
     </div>
     <teleport to="#search-form">
       <SearchForm v-model="q" />
     </teleport>
 
+    <DropZone>
     <files-list :files="files" @select-change="handleSelectChange($event)"></files-list>
+    </DropZone>
 
     <app-toast :show="toast.show" :message="toast.message" position="bottom-left" type="success" @hide="toast.show=false"></app-toast>
 
@@ -19,8 +21,12 @@
        :show="showModal && selectedItems.length === 1"
        @hide="showModal=false"
        >
-       <file-rename-form />
-</app-modal>
+       <file-rename-form
+       @close="showModal=false"
+       :file="selectedItems[0]"
+       @file-updated="handleFileUpdate($event)"
+       />
+    </app-modal>
   </div>
 </template>
 
@@ -34,6 +40,7 @@ import FileRenameForm from "../components/files/FileRenameForm.vue";
 import {ref,  reactive, watchEffect, toRef } from 'vue';
 
 import Toast from '../components/toast/Toast.vue';
+import DropZone from '../components/uploader/file-chooser/DropZone.vue';
 
 
 const fetchFiles = async (query) => {
@@ -64,7 +71,7 @@ const removeItem = async (item, files) => {
 
 
 export default {
-  components: { ActionBar, FilesList, SortToggler, SearchForm, Toast, FileRenameForm },
+  components: { ActionBar, FilesList, SortToggler, SearchForm, Toast, FileRenameForm, DropZone },
 
   setup(){
 
@@ -99,9 +106,16 @@ export default {
       toast.message = "Selected Item(s)successfully deleted";
     }
 
+    const handleFileUpdate = (file) => {
+      const oldFile = selectedItems.value[0];
+      const index = files.value.findIndex(item => item.id === file.id);
+      files.value.splice(index, 1, file);
+      toast.show = true;
+      toast.message = `File ${oldFile.name} renamed to ${file.name}`;
+
+     };
+
     watchEffect( async() => files.value = await fetchFiles(query) );
-
-
 
     return {
       files,
@@ -112,7 +126,7 @@ export default {
       handleRemove,
       toast,
       showModal,
-      FileRenameForm
+      handleFileUpdate
     };
   }
 
