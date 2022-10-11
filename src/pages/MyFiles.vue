@@ -10,7 +10,7 @@
       <SearchForm v-model="q" />
     </teleport>
 
-    <DropZone>
+    <DropZone @files-dropped="chosenFiles=$event">
     <files-list :files="files" @select-change="handleSelectChange($event)"></files-list>
     </DropZone>
 

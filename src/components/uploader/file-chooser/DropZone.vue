@@ -1,5 +1,12 @@
 <template>
-    <div class="dropzone">
+    <div
+    class="dropzone"
+    :class="{'dragged-over':  dragged}"
+    @dragover.prevent="dragged=true"
+    @dragleave.prevent="dragged=false"
+    @drop.prevent="handleDrop"
+
+    >
         <slot></slot>
     </div>
 </template>
@@ -15,3 +22,24 @@
         border: #4285f4;
     }
 </style>
+<script>
+
+import { ref } from "vue";
+export default {
+    setup(props,{ emit}) {
+        const dragged = ref(false);
+
+        const handleDrop = (event) => {
+            dragged.value = false;
+            emit("files-dropped", e.dataTransfer.files);
+        }
+
+        return {
+            dragged,
+            handleDrop
+        }
+    },
+    emits:['files-dropped']
+
+}
+</script>
