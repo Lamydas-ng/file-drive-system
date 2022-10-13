@@ -27,6 +27,7 @@
        @file-updated="handleFileUpdate($event)"
        />
     </app-modal>
+      <UploaderPopup :file="choosenFiles"  />
   </div>
 </template>
 
@@ -41,6 +42,7 @@ import {ref,  reactive, watchEffect, toRef } from 'vue';
 
 import Toast from '../components/toast/Toast.vue';
 import DropZone from '../components/uploader/file-chooser/DropZone.vue';
+import UploaderPopup from '../components/uploader/popup/UploaderPopup.vue';
 
 
 const fetchFiles = async (query) => {
@@ -71,7 +73,7 @@ const removeItem = async (item, files) => {
 
 
 export default {
-  components: { ActionBar, FilesList, SortToggler, SearchForm, Toast, FileRenameForm, DropZone },
+  components: { ActionBar, FilesList, SortToggler, SearchForm, Toast, FileRenameForm, DropZone, UploaderPopup },
 
   setup(){
 
