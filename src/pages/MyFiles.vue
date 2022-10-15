@@ -1,6 +1,11 @@
 <template>
   <div class="container py-3">
-    <ActionBar :selected-count="selectedItems.length" @remove="handleRemove" @rename="showModal=true" />
+    <ActionBar
+    :selected-count="selectedItems.length"
+    @remove="handleRemove"
+    @rename="showModal=true"
+    @files-choosen="choosenFiles = $event"
+     />
 
     <div class="d-flex justify-content-between align-items-center py-2">
       <h6 class="text-muted mb-0">Files</h6>
@@ -10,7 +15,7 @@
       <SearchForm v-model="q" />
     </teleport>
 
-    <DropZone @files-dropped="chosenFiles=$event">
+    <DropZone @files-dropped="choosenFiles=$event">
     <files-list :files="files" @select-change="handleSelectChange($event)"></files-list>
     </DropZone>
 
@@ -27,7 +32,7 @@
        @file-updated="handleFileUpdate($event)"
        />
     </app-modal>
-      <UploaderPopup :file="choosenFiles"  />
+      <UploaderPopup :files="choosenFiles"  />
   </div>
 </template>
 
@@ -78,6 +83,7 @@ export default {
   setup(){
 
     const files = ref([]);
+    const choosenFiles = ref([]);
     const selectedItems = ref([]);
     const showModal = ref(false);
     const query = reactive({
@@ -128,7 +134,8 @@ export default {
       handleRemove,
       toast,
       showModal,
-      handleFileUpdate
+      handleFileUpdate,
+      choosenFiles
     };
   }
 
