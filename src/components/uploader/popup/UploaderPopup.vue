@@ -3,14 +3,16 @@
      <div class="card header bg-dark px-3 py-3">
        <div class="d-dflex justify-content-between align-items-center">
          <span class="text-light"> Uploading </span>
-         
-         <PopupControls 
 
-         @close="handleClose"
-         @toggle="showPopupBody=!showPopupBody"
 
-         
-         />
+
+        <PopupControls
+          @toggle="showPopupBody = !showPopupBody"
+          @close="handleClose"
+        />
+
+
+
 
         </div>
      </div>
@@ -30,7 +32,7 @@
  import PopupControls from './PopupControls.vue' ;
  import states from '../states.js';
 import { ref, watch } from 'vue';
-import PopupControls from './PopupControls.vue';
+
 
 export default {
     props: {
@@ -66,7 +68,9 @@ export default {
             items.value.unshift(...getUploadItems(newFiles));
         });
         return {
-            items, handleClose, showPopupBody
+            items,
+            handleClose,
+            showPopupBody
         };
     },
     components: { PopupControls }
