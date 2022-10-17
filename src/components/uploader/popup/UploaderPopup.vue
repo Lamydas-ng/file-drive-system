@@ -3,14 +3,10 @@
      <div class="card header bg-dark px-3 py-3">
        <div class="d-dflex justify-content-between align-items-center">
          <span class="text-light"> {{ uploadingStatus }} </span>
-            <div class="popup-controls">
-                <button class="rounded-button me-2">
-                    <icon-chevron-down />
-                </button>
-                <button class="rounded-button">
-                    <icon-times></icon-times>
-                </button>
-            </div>
+             <PopupControls
+          @toggle="showPopupBody = !showPopupBody"
+          @close="handleClose"
+        />
 
         </div>
      </div>
@@ -28,7 +24,10 @@
  <script>
  import states from '../states.js'
 import { ref, watch, computed } from 'vue';
-
+import PopupControls from "./PopupControls.vue";
+  const randomId = () => {
+            return Math.random().toString(36).substring(2, 9);
+        };
 const uploadingItemsCount = (items) => {
     return computed(
     () => {
@@ -46,43 +45,45 @@ export default {
             required: true
         }
     },
+     components: { PopupControls },
     setup(props, { emit }) {
         const items = ref([]);
         const showPopupBody = ref(true);
 
-        const handleClose= () => {
-            if(confirm("CAncel all uploads?")){
+        const handleClose = () => {
+            if (confirm("CAncel all uploads?")) {
                 items.value.splice(0)
             }
 
-        const getUploadItems = (files) => {
-            return Array.from(files).map(file =>
-            ({
-                ID: randomId,
-                file,
-                progress: 0,
-                state: states.WAITING,
-                response: null
-            }));
-        };
+            const getUploadItems = (files) => {
+                return Array.from(files).map(file =>
+                ({
+                    ID: randomId,
+                    file,
+                    progress: 0,
+                    state: states.WAITING,
+                    response: null
+                }));
+            };
 
-        const uploadingStatus = computed(
-            () => {
-                return `Uploading ${ uploadingItemsCount(items) } items`;
-            }
+            const uploadingStatus = computed(
+                () => {
+                    return `Uploading ${uploadingItemsCount(items)} items`;
+                }
 
             )
 
-        watch(
-            () => props.files, (newFiles) => {
-                items.value.unshift(...getUploadItems(newFiles));
-        })
+            watch(
+                () => props.files, (newFiles) => {
+                    items.value.unshift(...getUploadItems(newFiles));
+                })
 
-        return {
-            items, uploadingStatus
+            return {
+                items, uploadingStatus, showPopupBody, handleClose
+            }
         }
-    }
 
+    }
 }
 
  </script>
