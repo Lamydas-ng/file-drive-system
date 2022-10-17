@@ -2,17 +2,15 @@
     <div class="card shadow uploader-popup" v-if="items.length">
      <div class="card header bg-dark px-3 py-3">
        <div class="d-dflex justify-content-between align-items-center">
-         <span class="text-light"> Uploading </span>
-
-
-
-        <PopupControls
-          @toggle="showPopupBody = !showPopupBody"
-          @close="handleClose"
-        />
-
-
-
+         <span class="text-light"> {{ uploadingStatus }} </span>
+            <div class="popup-controls">
+                <button class="rounded-button me-2">
+                    <icon-chevron-down />
+                </button>
+                <button class="rounded-button">
+                    <icon-times></icon-times>
+                </button>
+            </div>
 
         </div>
      </div>
@@ -28,10 +26,31 @@
  </template>
 
  <script>
+ import states from '../states.js'
+import { ref, watch, computed } from 'vue';
 
- import PopupControls from './PopupControls.vue' ;
- import states from '../states.js';
-import { ref, watch } from 'vue';
+  const randomId = () => {
+            return Math.random().toString(36).substring(2, 9);
+        };
+
+const uploadingItemsCount = (items) => {
+    return computed(
+    () => {
+       return items.value.filter((item) => item.state === states.WAITING || item.state === states.UPLOADING).length;
+    }
+).value;
+}
+
+    const getUploadItems = (files) => {
+            return Array.from(files).map(file =>
+            ({
+                ID: randomId,
+                file,
+                progress: 0,
+                state: states.WAITING,
+                response: null
+            }));
+        };
 
 
 export default {
@@ -44,9 +63,6 @@ export default {
     setup(props, { emit }) {
         const items = ref([]);
         const showPopupBody = ref(true);
-        const randomId = () => {
-            return Math.random().toString(36).substring(2, 9);
-        };
 
         const handleClose= () => {
             if(confirm("CAncel all uploads?")){
@@ -55,25 +71,25 @@ export default {
 
         };
 
-        const getUploadItems = (files) => {
-            return Array.from(files).map(file => ({
-                ID: randomId,
-                file,
-                progress: 0,
-                state: states.WAITING,
-                response: null
-            }));
-        };
-        watch(() => props.files, (newFiles) => {
-            items.value.unshift(...getUploadItems(newFiles));
-        });
+
+
+        const uploadingStatus = computed(
+            () => {
+                return `Uploading ${ uploadingItemsCount(items) } items`;
+            }
+
+            )
+
+        watch(
+            () => props.files, (newFiles) => {
+                items.value.unshift(...getUploadItems(newFiles));
+        })
+
         return {
-            items,
-            handleClose,
-            showPopupBody
-        };
-    },
-    components: { PopupControls }
+            items, uploadingStatus, showPopupBody, handleClose
+        }
+    }
+
 }
 
  </script>
