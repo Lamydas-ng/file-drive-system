@@ -31,12 +31,21 @@ import PopupControls from "./PopupControls.vue";
 const uploadingItemsCount = (items) => {
     return computed(
     () => {
-        items.value.filter((item) => item.state === states.WAITING || item.state === states.UPLOADING).length;
+      return  items.value.filter((item) => item.state === states.WAITING || item.state === states.UPLOADING).length;
     }
 ).value;
 }
 
-
+ const getUploadItems = (files) => {
+                return Array.from(files).map(file =>
+                ({
+                    ID: randomId,
+                    file,
+                    progress: 0,
+                    state: states.WAITING,
+                    response: null
+                }));
+            };
 
 export default {
     props: {
@@ -54,17 +63,8 @@ export default {
             if (confirm("CAncel all uploads?")) {
                 items.value.splice(0)
             }
+        }
 
-            const getUploadItems = (files) => {
-                return Array.from(files).map(file =>
-                ({
-                    ID: randomId,
-                    file,
-                    progress: 0,
-                    state: states.WAITING,
-                    response: null
-                }));
-            };
 
             const uploadingStatus = computed(
                 () => {
@@ -81,7 +81,7 @@ export default {
             return {
                 items, uploadingStatus, showPopupBody, handleClose
             }
-        }
+
 
     }
 }
