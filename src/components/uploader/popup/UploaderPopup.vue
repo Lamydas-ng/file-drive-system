@@ -27,20 +27,20 @@ import PopupControls from "./PopupControls.vue";
             return Math.random().toString(36).substring(2, 9);
         };
 const uploadingItemsCount = (items) => {
-    return computed(
-    () => {
-      return  items.value.filter((item) => item.state === states.WAITING || item.state === states.UPLOADING).length;
-    }
-).value;
-}
+
+    return  computed(() =>{
+    return items.value.filter((item) =>
+        item.state === states.WAITING || item.state === states.UPLOADING
+    ).length
+
+    }).value;
+
+};
 
  import PopupControls from './PopupControls.vue' ;
  import states from '../states.js';
 import { computed, ref, watch } from 'vue';
 
-const randomId = () => {
-            return Math.random().toString(36).substring(2, 9);
-        };
 
 const getUploadItems = (files) => {
             return Array.from(files).map(file => ({
@@ -52,16 +52,7 @@ const getUploadItems = (files) => {
             }));
         };
 
-const uploadingItemsCount = (items) => {
 
-    return  computed(() =>{
-    return items.value.filter((item) =>
-        item.state === states.WAITING || item.state === states.UPLOADING
-    ).length
-
-    }).value;
-
-};
 
 
 export default {
@@ -83,12 +74,7 @@ export default {
         }
 
 
-            const uploadingStatus = computed(
-                () => {
-                    return `Uploading ${uploadingItemsCount(items)} items`;
-                }
 
-            )
 
 
         const uploadingStatus = computed(()=>{
