@@ -37,9 +37,7 @@ const uploadingItemsCount = (items) => {
 
 };
 
- import PopupControls from './PopupControls.vue' ;
- import states from '../states.js';
-import { computed, ref, watch } from 'vue';
+
 
 
 const getUploadItems = (files) => {
