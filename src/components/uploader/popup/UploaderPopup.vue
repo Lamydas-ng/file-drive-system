@@ -1,18 +1,18 @@
 <template>
-    <div class="card shadow uploader-popup" v-if="items.length">
+    <div class="card shadow uploader-popup" >
      <div class="card header bg-dark px-3 py-3">
        <div class="d-dflex justify-content-between align-items-center">
-         <span class="text-light">{{ uploadingStatus }}</span>
+         <span class="text-light">{{ uploadingStatus }}
          <PopupControls
          @close="handleClose"
          @toggle="showPopupBody=!showPopupBody"
-         /> </div>
+         /> </span></div>
      </div>
      <div class="upload-items" v-show="showPopupBody">
         <ul class="list-group list-group-flush">
-            <UploadItem  v-for="item in items" :key="`item-${item.id}`"    :item="item"   class="list-group-item d-flex justify-content-between">
-
-            </UploadItem>
+            <UploadItem  v-for="item in items" :key="`item-${item.id}`"    
+            :item="item"   class="list-group-item d-flex justify-content-between" />
+            
         </ul>
      </div>
     </div>
@@ -60,7 +60,7 @@ export default {
             required: true
         }
     },
-     components: { PopupControls },
+    
     setup(props, { emit }) {
         const items = ref([]);
         const showPopupBody = ref(true);
@@ -70,9 +70,6 @@ export default {
                 items.value.splice(0);
             }
         }
-
-
-
 
 
         const uploadingStatus = computed(()=>{

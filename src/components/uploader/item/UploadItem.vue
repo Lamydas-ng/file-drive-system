@@ -19,7 +19,7 @@ export default {
         required: true
 
     },
-    setup(){
+    setup(props){
 
       return {
         iconFileType: useIconFileType(props.item.file.type)
