@@ -1,7 +1,7 @@
 <template>
     <li   class="list-group-item d-flex justify-content-between">
                 <p class="upload-item">
-                <component :is="IconFileType"></component>
+                <component :is="iconFileType"></component>
                 <span> {{ item.file.name}}</span>
                 </p>
                 <div class="upload-controls">x</div>
@@ -11,12 +11,15 @@
 </template>
 
 <script>
- import {useIconFileType} from '../../../composable/icon-file-type.js'
+ import {useIconFileType} from '../../../composable/icon-file-type'
 export default {
 
     props: {
-        item: Object,
+    item: {
+      type: Object,
         required: true
+
+    }
 
     },
     setup(props){

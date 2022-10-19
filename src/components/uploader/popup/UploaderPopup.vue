@@ -1,5 +1,5 @@
 <template>
-    <div class="card shadow uploader-popup" >
+    <div class="card shadow uploader-popup" v-if="items.length">
      <div class="card header bg-dark px-3 py-3">
        <div class="d-dflex justify-content-between align-items-center">
          <span class="text-light">{{ uploadingStatus }}
@@ -8,13 +8,18 @@
          @toggle="showPopupBody=!showPopupBody"
          /> </span></div>
      </div>
-     <div class="upload-items" v-show="showPopupBody">
-        <ul class="list-group list-group-flush">
-            <UploadItem  v-for="item in items" :key="`item-${item.id}`"    
-            :item="item"   class="list-group-item d-flex justify-content-between" />
-            
-        </ul>
+
+ <div class="upload-items" v-show="showPopupBody">
+<ul class="list-group list-group-flush">
+<UploadItem v-for="item in items" :key="`item-${item.id}`"
+            :item="item"   class="UploadItemst-group-item d-flex justify-content-between"></UploadItem>
+
+ </ul>
      </div>
+
+
+
+
     </div>
  </template>
 
@@ -22,7 +27,10 @@
  import states from '../states.js'
 import { ref, watch, computed } from 'vue';
 import PopupControls from "./PopupControls.vue";
+
 import UploadItem from '../item/UploadItem.vue';
+
+
   const randomId = () => {
             return Math.random().toString(36).substring(2, 9);
         };
@@ -40,15 +48,7 @@ const uploadingItemsCount = (items) => {
 
 
 
-const getUploadItems = (files) => {
-            return Array.from(files).map(file => ({
-                ID: randomId,
-                file,
-                progress: 0,
-                state: states.WAITING,
-                response: null
-            }));
-        };
+
 
 
 
@@ -60,7 +60,7 @@ export default {
             required: true
         }
     },
-    
+
     setup(props, { emit }) {
         const items = ref([]);
         const showPopupBody = ref(true);
@@ -70,21 +70,32 @@ export default {
                 items.value.splice(0);
             }
         }
-
+const getUploadItems = (files) => {
+            return Array.from(files).map(file => ({
+                ID: randomId,
+                file: file,
+                progress: 0,
+                state: states.WAITING,
+                response: null
+            }));
+        };
 
         const uploadingStatus = computed(()=>{
-
                 return `Uploading ${uploadingItemsCount(items)} items` ;
         })
 
         watch(() => props.files, (newFiles) => {
+
             items.value.unshift(...getUploadItems(newFiles));
+
         });
+
         return {
             items, handleClose, showPopupBody, uploadingStatus
         };
     },
-    components: { PopupControls, UploadItem }
+
+    components: { PopupControls, UploadItem, UploadItem, UploadItem }
 }
 
  </script>

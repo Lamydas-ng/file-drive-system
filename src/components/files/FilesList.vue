@@ -1,7 +1,7 @@
 <template>
         <div class="row" @click="clearSelected">
            <file-item
-           
+
            v-for="file in files"
            :file="file"
             :key="`file-${file.id}`"
@@ -10,7 +10,7 @@
             :class="{ 'selected-file': isSelected(file) }"
            ></file-item>
          </div>
-</template>s
+</template>
 
 <script>
 
