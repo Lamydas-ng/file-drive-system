@@ -1,6 +1,6 @@
 <template>
     <div
-    class="dropzone"
+    class="dropzone "
     :class="{'dragged-over':  dragged}"
     @dragover.prevent="dragged=true"
     @dragleave.prevent="dragged=false"
@@ -10,18 +10,6 @@
         <slot></slot>
     </div>
 </template>
-<style scoped>
-    .dropzone{
-        min-height: 80vh;
-        border: 2px solid #fff;
-        background: #fff;
-        padding: 0.3em;
-    }
-    .dragged-over{
-        background: #e8f0fe;
-        border: #4285f4;
-    }
-</style>
 <script>
 
 import { ref } from "vue";
@@ -31,7 +19,7 @@ export default {
 
         const handleDrop = (event) => {
             dragged.value = false;
-            emit("files-dropped", e.dataTransfer.files);
+            emit("files-dropped", event.dataTransfer.files);
         }
 
         return {
@@ -43,3 +31,15 @@ export default {
 
 }
 </script>
+<style scoped>
+.dropzone {
+  min-height: 80vh;
+  border: 2px solid #fff;
+  background: #fff;
+  padding: 0.3em;
+}
+.dragged-over {
+  background: #e8f0fe;
+  border: 2px solid #4285f4;
+}
+</style>

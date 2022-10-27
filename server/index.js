@@ -1,7 +1,10 @@
-const jsonServer = require("json-server");
+const jsonServer = require('json-server');
 const path = require("path");
 const cors = require("cors");
 var multer = require("multer");
+
+
+   
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, path.join(__dirname, "./uploads"));
@@ -55,6 +58,13 @@ server.delete("/files/:id", (req, res, next) => {
 });
 
 server.use(middlewares);
+server.use( (req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  next();
+});
 server.use(router);
 server.listen(port, () => {
   console.log("JSON Server is running at port ", port);

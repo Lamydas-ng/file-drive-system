@@ -21,7 +21,14 @@
       "id": 5,
       "name": "File5.xls",
       "mimeType": "application/vnd.ms-excel"
+    },
+    {
+      "name": "food-1.jpg",
+      "mimeType": "image/jpeg",
+      "url": "http://localhost:3030/uploads/food-1.jpg",
+      "path": "C:\\xampp\\htdocs\\file-drive-system\\server\\uploads\\food-1.jpg",
+      "createdAt": 1666797699977,
+      "id": 7
     }
-   
   ]
 }
