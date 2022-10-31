@@ -30,12 +30,12 @@
        @close="showModal=false"
        :file="selectedItems[0]"
        @file-updated="handleFileUpdate($event)"
-       @upload-complete="handleUploadComplete"
+     
        />
     </app-modal>
       <UploaderPopup 
       :files="choosenFiles" 
-      
+      @upload-complete="handleUploadComplete"
       />
   </div>
 </template>
@@ -120,7 +120,7 @@ export default {
      
 
     const handleUploadComplete = (item) => {
-      console.log(item);
+      //console.log(item);
       files.value.push(item);
     }
 
