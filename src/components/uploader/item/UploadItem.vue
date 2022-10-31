@@ -2,7 +2,7 @@
     <li   class="list-group-item d-flex justify-content-between">
                 <p :class="UploadItemClasses">
                 <component :is="iconFileType"></component>
-                <span class="failed-text"  v-show="isCanclled" >Upload Cancelled</span>
+                <span class="failed-text"  v-show="isCancelled" >Upload Cancelled</span>
                 {{ uploadItem.file.name}}
                 </p>
                 
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { reactive, onMounted, computed } from 'vue'
+import { reactive, onMounted, computed, watch } from 'vue'
  import {useIconFileType} from '../../../composable/icon-file-type'
  import states from '../states'
  import filesApi from '../../../api/files'
@@ -77,9 +77,9 @@ export default {
     },
     
   },
-  
+  emits:['change'],
 
-    setup(props){
+    setup(props, {emit}){
 
       const uploadItem = reactive(props.item) ;
       let source = axios.CancelToken.source();
@@ -106,6 +106,11 @@ export default {
       }
       const isCancelled = computed(()=> uploadItem.state ===states.CANCELLED)
       
+      watch(()=>[uploadItem.state,uploadItem.progress],()=>{
+
+        emit('change',uploadItem);
+
+      });
       onMounted(startUpload(uploadItem,source));
 
       return {

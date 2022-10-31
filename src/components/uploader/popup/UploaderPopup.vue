@@ -11,8 +11,14 @@
 
  <div class="upload-items" v-show="showPopupBody">
 <ul class="list-group list-group-flush">
-<UploadItem v-for="item in items" :key="`item-${item.id}`"
-            :item="item"   class="UploadItemst-group-item d-flex justify-content-between"></UploadItem>
+<UploadItem 
+    v-for="item in items"
+     :key="`item-${item.id}`"
+     :item="item"   
+     class="UploadItemst-group-item d-flex justify-content-between"
+     @change="handleItemChange"
+     >
+    </UploadItem>
 
  </ul>
      </div>
@@ -46,13 +52,6 @@ const uploadingItemsCount = (items) => {
 };
 
 
-
-
-
-
-
-
-
 export default {
     props: {
         files: {
@@ -61,16 +60,19 @@ export default {
         }
     },
 
+    emits:['upload-complete'],
+    
     setup(props, { emit }) {
         const items = ref([]);
         const showPopupBody = ref(true);
-
+       
         const handleClose= () => {
             if(confirm("CAncel all uploads?")){
                 items.value.splice(0);
             }
         }
-const getUploadItems = (files) => {
+      
+        const getUploadItems = (files) => {
             return Array.from(files).map(file => ({
                 ID: randomId,
                 file: file,
@@ -79,6 +81,15 @@ const getUploadItems = (files) => {
                 response: null
             }));
         };
+
+        const handleItemChange = (item)=>{
+            if(item.state===states.COMPLETE ){
+                emit('upload-complete', item.response);
+                const index = items.value.findIndex((i)=> i.id ===item.id)
+                items.value.splice(index,1,item);
+            }
+        }
+
 
         const uploadingStatus = computed(()=>{
                 return `Uploading ${uploadingItemsCount(items)} items` ;
@@ -91,7 +102,7 @@ const getUploadItems = (files) => {
         });
 
         return {
-            items, handleClose, showPopupBody, uploadingStatus
+            items, handleClose, showPopupBody, uploadingStatus,handleItemChange
         };
     },
 

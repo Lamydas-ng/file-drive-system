@@ -29,6 +29,14 @@
       "path": "C:\\xampp\\htdocs\\file-drive-system\\server\\uploads\\food-1.jpg",
       "createdAt": 1666797699977,
       "id": 7
+    },
+    {
+      "name": "food-5.jpg",
+      "mimeType": "image/jpeg",
+      "url": "http://localhost:3030/uploads/food-5.jpg",
+      "path": "C:\\xampp\\htdocs\\file-drive-system\\server\\uploads\\food-5.jpg",
+      "createdAt": 1667229088044,
+      "id": 8
     }
   ]
 }

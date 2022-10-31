@@ -30,9 +30,13 @@
        @close="showModal=false"
        :file="selectedItems[0]"
        @file-updated="handleFileUpdate($event)"
+       @upload-complete="handleUploadComplete"
        />
     </app-modal>
-      <UploaderPopup :files="choosenFiles"  />
+      <UploaderPopup 
+      :files="choosenFiles" 
+      
+      />
   </div>
 </template>
 
@@ -113,6 +117,13 @@ export default {
       toast.show = true;
       toast.message = "Selected Item(s)successfully deleted";
     }
+     
+
+    const handleUploadComplete = (item) => {
+      console.log(item);
+      files.value.push(item);
+    }
+
 
     const handleFileUpdate = (file) => {
       const oldFile = selectedItems.value[0];
@@ -135,7 +146,8 @@ export default {
       toast,
       showModal,
       handleFileUpdate,
-      choosenFiles
+      choosenFiles,
+      handleUploadComplete
     };
   }
 
