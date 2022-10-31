@@ -37,6 +37,22 @@
       "path": "C:\\xampp\\htdocs\\file-drive-system\\server\\uploads\\food-5.jpg",
       "createdAt": 1667229088044,
       "id": 8
+    },
+    {
+      "name": "food-5.jpg",
+      "mimeType": "image/jpeg",
+      "url": "http://localhost:3030/uploads/food-5.jpg",
+      "path": "C:\\xampp\\htdocs\\file-drive-system\\server\\uploads\\food-5.jpg",
+      "createdAt": 1667230304331,
+      "id": 9
+    },
+    {
+      "name": "food-5.jpg",
+      "mimeType": "image/jpeg",
+      "url": "http://localhost:3030/uploads/food-5.jpg",
+      "path": "C:\\xampp\\htdocs\\file-drive-system\\server\\uploads\\food-5.jpg",
+      "createdAt": 1667230304348,
+      "id": 10
     }
   ]
 }

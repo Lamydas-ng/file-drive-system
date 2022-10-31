@@ -79,7 +79,7 @@ export default {
   },
   emits:['change'],
 
-    setup(props, {emit}){
+    setup(props, { emit }){
 
       const uploadItem = reactive(props.item) ;
       let source = axios.CancelToken.source();
