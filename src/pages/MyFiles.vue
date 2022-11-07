@@ -109,7 +109,7 @@ export default {
     const handleSelectChange = (items) => {
       selectedItems.value = Array.from(items);
     }
-    provide("setSelectItem",handleSelectChange);
+    provide("setSelectedItem",handleSelectChange);
 
 
     const handleRemove = () => {

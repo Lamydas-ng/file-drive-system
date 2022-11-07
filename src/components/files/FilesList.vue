@@ -51,7 +51,7 @@ export default {
 
             emit('select-change', selectedItems);
         }
-        const isSelected = (item) => selectedItems.has(item) || props.selected.length && selected[0].id==item.id;
+        const isSelected = (item) => selectedItems.has(item) || props.selected.length && props.selected[0].id ==item.id;
 
         const clearSelected = () => {
             selectedItems.clear();
