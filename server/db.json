@@ -31,12 +31,20 @@
       "id": 7
     },
     {
-      "name": "food-5.jpg",
+      "name": "food-4.jpg",
       "mimeType": "image/jpeg",
-      "url": "http://localhost:3030/uploads/food-5.jpg",
-      "path": "C:\\xampp\\htdocs\\file-drive-system\\server\\uploads\\food-5.jpg",
-      "createdAt": 1667231295192,
-      "id": 8
+      "url": "http://localhost:3030/uploads/food-4.jpg",
+      "path": "C:\\xampp\\htdocs\\file-drive-system\\server\\uploads\\food-4.jpg",
+      "createdAt": 1667821281651,
+      "id": 9
+    },
+    {
+      "name": "receipt_p-l-634e7bc6d7a25.pdf",
+      "mimeType": "application/pdf",
+      "url": "http://localhost:3030/uploads/receipt_p-l-634e7bc6d7a25.pdf",
+      "path": "C:\\xampp\\htdocs\\file-drive-system\\server\\uploads\\receipt_p-l-634e7bc6d7a25.pdf",
+      "createdAt": 1667835561487,
+      "id": 10
     }
   ]
 }

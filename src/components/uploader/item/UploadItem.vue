@@ -6,13 +6,13 @@
                 {{ uploadItem.file.name}}
                 </p>
                 
-                <upload-control :item="item" @cancel="handleCancel" @retry="handleRetry"></upload-control>
+                <upload-control :item="item" @cancel="handleCancel" @retry="handleRetry" @locate="handleLocate"></upload-control>
             </li>
 
 </template>
 
 <script>
-import { reactive, onMounted, computed, watch } from 'vue'
+import { reactive, onMounted, computed, watch, inject } from 'vue'
  import {useIconFileType} from '../../../composable/icon-file-type'
  import states from '../states'
  import filesApi from '../../../api/files'
@@ -88,6 +88,13 @@ export default {
         source.cancel();
       }
 
+      const setSelectedItem= inject("setSelectedItem");
+
+      const handleLocate = ()=>{
+        setSelectedItem([uploadItem.response]);
+      }
+
+
       const UploadItemClasses = computed(()=>{
         return {
           "upload-item":true,
@@ -118,6 +125,7 @@ export default {
         iconFileType: useIconFileType(props.item.file.type),
         handleCancel,
         handleRetry,
+        handleLocate,
         isCancelled,
         UploadItemClasses
       }

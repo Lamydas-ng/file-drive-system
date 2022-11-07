@@ -24,6 +24,10 @@ export default {
        files: {
         type: Array,
         required:true
+       },
+       selected:{
+        type:Array,
+        default: ()=>[]
        }
     },
     setup(props, { emit } ) {
@@ -47,7 +51,7 @@ export default {
 
             emit('select-change', selectedItems);
         }
-        const isSelected = (item) => selectedItems.has(item);
+        const isSelected = (item) => selectedItems.has(item) || props.selected.length && selected[0].id==item.id;
 
         const clearSelected = () => {
             selectedItems.clear();

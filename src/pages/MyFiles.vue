@@ -16,7 +16,7 @@
     </teleport>
 
     <DropZone @files-dropped="choosenFiles=$event">
-    <files-list :files="files" @select-change="handleSelectChange($event)"></files-list>
+    <files-list :files="files" @select-change="handleSelectChange($event)" :selected="selectedItems"></files-list>
     </DropZone>
 
     <app-toast :show="toast.show" :message="toast.message" position="bottom-left" type="success" @hide="toast.show=false"></app-toast>
@@ -47,7 +47,7 @@ import SearchForm from '../components/SearchForm.vue';
 import filesApi from "../api/files";
 import FilesList from "../components/files/FilesList.vue";
 import FileRenameForm from "../components/files/FileRenameForm.vue";
-import {ref,  reactive, watchEffect, toRef } from 'vue';
+import {ref,  reactive, watchEffect, toRef,provide } from 'vue';
 
 import Toast from '../components/toast/Toast.vue';
 import DropZone from '../components/uploader/file-chooser/DropZone.vue';
@@ -109,6 +109,8 @@ export default {
     const handleSelectChange = (items) => {
       selectedItems.value = Array.from(items);
     }
+    provide("setSelectItem",handleSelectChange);
+
 
     const handleRemove = () => {
       if(confirm("Are you sure?"))
